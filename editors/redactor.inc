@@ -7,7 +7,6 @@ function redactor_redactor_editor() {
     'title' => 'Redactor',
     'vendor url' => 'http://imperavi.com/redactor',
     'download url' => 'http://imperavi.com/redactor/download',
-    'library path' => wysiwyg_get_path('redactor') . '/dist',
     'libraries' => array(
       '' => array(
         'title' => 'Default',
@@ -34,7 +33,7 @@ function redactor_redactor_editor() {
       ),
     ),
     'versions' => array(
-      '10.0.0' => array(
+      '2.11' => array(
         'js files' => array('redactor.js'),
       ),
     )
@@ -50,7 +49,7 @@ function redactor_redactor_version($editor) {
   $library = fopen($library, 'r');
   $max_lines = 8;
   while ($max_lines && $line = fgets($library, 500)) {
-    if (preg_match('@Redactor v*([\d\.]+)@', $line, $version)) {
+    if (preg_match('@Version *([\d\.]+)@', $line, $version)) {
       fclose($library);
       return $version[1];
     }
