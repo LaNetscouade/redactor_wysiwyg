@@ -7,6 +7,7 @@ function redactor_redactor_editor() {
     'title' => 'Redactor',
     'vendor url' => 'http://imperavi.com/redactor',
     'download url' => 'http://imperavi.com/redactor/download',
+    'library path' => wysiwyg_get_path('redactor') . '/dist',
     'libraries' => array(
       '' => array(
         'title' => 'Default',
