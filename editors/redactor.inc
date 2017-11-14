@@ -167,11 +167,11 @@ function redactor_redactor_wysiwyg_plugins($editor) {
   return array(
     'default' => array(
       'buttons' => array(
-        'html' => 'Html',
-        'formatting' => 'Formatting',
+        'format' => 'Format',
         'bold' => 'Bold',
         'italic' => 'Italic',
         'deleted' => 'Deleted',
+        'lists' => 'Lists',
         'unorderedlist' => 'Unordered List',
         'orderedlist' => 'Ordered List',
         'outdent' => 'Outdent',
@@ -179,8 +179,8 @@ function redactor_redactor_wysiwyg_plugins($editor) {
         'image' => 'Image',
         'file' => 'File',
         'link' => 'Link',
-        'alignment' => 'Alignment',
         'horizontalrule' => 'Horizontal Rule',
+        'quote' => 'Quote',
       ),
       'internal' => TRUE,
     ),
