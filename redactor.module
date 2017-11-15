@@ -37,6 +37,14 @@ function redactor_redactor_plugins($editor) {
         ),
       ),
     ),
+    'inlinestyle' => array(
+      'name' => 'Inline Style',
+      'files' => array(
+        'js' => array(
+          $editor['library path'] . '/plugins/inlinestyle.js',
+        ),
+      ),
+    ),
     'clips' => array(
       'name' => 'Clips',
       'files' => array(
