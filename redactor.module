@@ -18,6 +18,17 @@ function redactor_wysiwyg_include_directory($type) {
 function redactor_redactor_plugins($editor) {
 
   return array(
+    'alignment' => array(
+      'name' => 'Alignment',
+      'files' => array(
+        'js' => array(
+          $editor['library path'] . '/plugins/alignment.js',
+        ),
+        'css' => array(
+          $editor['library path'] . '/plugins/alignment.css',
+        ),
+      )
+    ),
     'counter' => array(
       'name' => 'Counter',
       'files' => array(
@@ -106,6 +117,14 @@ function redactor_redactor_plugins($editor) {
       'files' => array(
         'js' => array(
           $editor['library path'] . '/plugins/textexpander.js',
+        ),
+      ),
+    ),
+    'source' => array(
+      'name' => 'HTML',
+      'files' => array(
+        'js' => array(
+          $editor['library path'] . '/plugins/source.js',
         ),
       ),
     ),
