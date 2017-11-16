@@ -83,9 +83,10 @@ function redactor_imagemanager_upload($wysiwyg_profile) {
 function redactor_imagemanager_get_image_infos($file) {
     $url = parse_url(file_create_url($file->uri));
     $infos = array(
-      'image' => $url['path'],
       'thumb' => image_style_url('thumbnail', $file->uri),
-      'name'  => $file->name
+      'url' => $url['path'],
+      'id'  => $file->fid,
+      'title'  => $file->name,
     );
 
     drupal_alter('redactor_imagemanager_image_infos', $infos, $file);
