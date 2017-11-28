@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * Implements hook_menu().
@@ -41,31 +41,26 @@ function redactor_filemanager_list($wysiwyg_profile) {
   $config = redactor_get_plugin_config('filemanager', $wysiwyg_profile);
 
   $files = file_scan_directory(
-    $config['upload_dir'], '/\.(' . join(drupal_explode_tags($config['extensions']), '|') . ')$/',
-    array(
-      'recurse' => false
-    )
+      $config['upload_dir'], '/\.(' . join(drupal_explode_tags($config['extensions']), '|') . ')$/', array(
+    'recurse' => false
+      )
   );
 
-  foreach($files as $file) {
+  foreach ($files as $file) {
     $url = parse_url(file_create_url($file->uri));
     $extension = pathinfo($file->uri, PATHINFO_EXTENSION);
 
     $files_urls[] = array(
-      'link'     => $url['path'],
-      'size'     => format_size(filesize($file->uri)),
-      'name'     => $file->name,
-      'title'    => $file->name,
-      'filelink' => $url['path'],
-      'filename' => $file->name,
-      'mime'     => file_get_mimetype($file),
-      'ext'      => $extension
+      'title' => $file->name,
+      'name' => $file->name,
+      'url' => $url['path'],
+      'id' => $file->fid,
+      'size' => format_size(filesize($file->uri))
     );
   }
 
   return drupal_json_output($files_urls);
 }
-
 
 /**
  * Implements hook_permission().
@@ -92,16 +87,12 @@ function redactor_filemanager_upload($wysiwyg_profile) {
   $file = file_unmanaged_copy($_FILES['file']['tmp_name'], $config['upload_dir'] . $_FILES['file']['name']);
   $filelink = file_create_url($file);
 
-  //$extension = pathinfo($file, PATHINFO_EXTENSION);
-
   drupal_json_output(array(
     'title' => $_FILES['file']['name'],
     'name' => $_FILES['file']['name'],
     'url' => $filelink,
     'id' => $_FILES['file']['tmp_name'],
     'size' => format_size(filesize($file)),
-    /*'mime' => file_get_mimetype($file),
-    'ext' => $extension*/
   ));
 }
 
@@ -130,7 +121,7 @@ function redactor_filemanager_redactor_plugins($editor) {
  * Implements hook_form_FORM_ID_alter().
  */
 function redactor_filemanager_form_wysiwyg_profile_form_alter(&$form, &$form_state, $profile) {
-  if($form_state['wysiwyg']['editor'] == 'redactor') {
+  if ($form_state['wysiwyg']['editor'] == 'redactor') {
     return;
   }
 
@@ -146,7 +137,7 @@ function redactor_filemanager_form_wysiwyg_profile_form_alter(&$form, &$form_sta
 
   $profile = (array) $profile;
 
-  if(empty($profile['settings']['filemanager'])) {
+  if (empty($profile['settings']['filemanager'])) {
     $profile['settings']['filemanager'] = array();
   }
 
@@ -173,15 +164,15 @@ function redactor_filemanager_form_wysiwyg_profile_form_alter(&$form, &$form_sta
 }
 
 function redactor_filemanager_wysiwyg_editor_settings_alter(&$settings, $context) {
-  if($context['editor']['name'] != 'redactor') {
+  if ($context['editor']['name'] != 'redactor') {
     return;
   }
 
-  if(!in_array('filemanager', $settings['plugins'])) {
+  if (!in_array('filemanager', $settings['plugins'])) {
     return;
   }
 
   $profile = $context['profile'];
-  $settings['fileManagerJson'] = url('redactor/filemanager/'.$profile->format.'/files.json');
-  $settings['fileUpload'] = url('redactor/filemanager/'.$profile->format.'/upload');
+  $settings['fileManagerJson'] = url('redactor/filemanager/' . $profile->format . '/files.json');
+  $settings['fileUpload'] = url('redactor/filemanager/' . $profile->format . '/upload');
 }
