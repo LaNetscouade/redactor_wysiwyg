@@ -48,13 +48,15 @@ function redactor_filemanager_list($wysiwyg_profile) {
 
   foreach ($files as $file) {
     $url = parse_url(file_create_url($file->uri));
+    $extension = pathinfo($file->uri, PATHINFO_EXTENSION);
 
     $files_urls[] = array(
       'title' => $file->name,
       'name' => $file->name,
       'url' => $url['path'],
       'id' => $file->fid,
-      'size' => format_size(filesize($file->uri))
+      'size' => format_size(filesize($file->uri)),
+      'ext' => $extension
     );
   }
 
@@ -85,6 +87,7 @@ function redactor_filemanager_upload($wysiwyg_profile) {
 
   $file = file_unmanaged_copy($_FILES['file']['tmp_name'], $config['upload_dir'] . $_FILES['file']['name']);
   $filelink = file_create_url($file);
+  $extension = pathinfo($file, PATHINFO_EXTENSION);
 
   drupal_json_output(array(
     'title' => $_FILES['file']['name'],
@@ -92,6 +95,7 @@ function redactor_filemanager_upload($wysiwyg_profile) {
     'url' => $filelink,
     'id' => $_FILES['file']['tmp_name'],
     'size' => format_size(filesize($file)),
+    'ext' => $extension
   ));
 }
 
