@@ -48,7 +48,6 @@ function redactor_filemanager_list($wysiwyg_profile) {
 
   foreach ($files as $file) {
     $url = parse_url(file_create_url($file->uri));
-    $extension = pathinfo($file->uri, PATHINFO_EXTENSION);
 
     $files_urls[] = array(
       'title' => $file->name,
