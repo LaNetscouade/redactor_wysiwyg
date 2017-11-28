@@ -92,14 +92,16 @@ function redactor_filemanager_upload($wysiwyg_profile) {
   $file = file_unmanaged_copy($_FILES['file']['tmp_name'], $config['upload_dir'] . $_FILES['file']['name']);
   $filelink = file_create_url($file);
 
-  $extension = pathinfo($file, PATHINFO_EXTENSION);
+  //$extension = pathinfo($file, PATHINFO_EXTENSION);
 
   drupal_json_output(array(
-    'filename' => $_FILES['file']['name'],
-    'filelink' => $filelink,
+    'title' => $_FILES['file']['name'],
+    'name' => $_FILES['file']['name'],
+    'url' => $filelink,
+    'id' => $_FILES['file']['tmp_name'],
     'size' => format_size(filesize($file)),
-    'mime' => file_get_mimetype($file),
-    'ext' => $extension
+    /*'mime' => file_get_mimetype($file),
+    'ext' => $extension*/
   ));
 }
 
