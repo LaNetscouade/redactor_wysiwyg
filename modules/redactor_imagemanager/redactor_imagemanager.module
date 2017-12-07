@@ -150,6 +150,8 @@ function redactor_imagemanager_wysiwyg_editor_settings_alter(&$settings, $contex
   $profile = $context['profile'];
   $settings['imageManagerJson'] = url('redactor/imagemanager/'.$profile->format.'/images.json');
   $settings['imageUpload'] = url('redactor/imagemanager/'.$profile->format.'/upload');
+  $settings['imageResizable'] = true;
+  $settings['imagePosition'] = true;
 }
 
 /**
